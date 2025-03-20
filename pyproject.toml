@@ -1,0 +1,41 @@
+[project]
+name = "bayesian-colormodeling"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "click>=8.1.8",
+    "ffmpeg-python>=0.2.0",
+    "ipykernel>=6.29.5",
+    "ipywidgets>=8.1.5",
+    "matplotlib>=3.10.1",
+    "numpy>=2.2.4",
+    "opencv-contrib-python-headless>=4.11.0.86",
+    "orjson>=3.10.15",
+    "pandas>=2.2.3",
+    "pillow>=11.1.0",
+    "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
+    "toml>=0.10.2",
+    "tqdm>=4.67.1",
+]
+
+[dependency-groups]
+dev = [
+    "flake8>=7.1.2",
+    "mypy>=1.15.0",
+    "pandas-stubs>=2.2.3.250308",
+    "ruff>=0.11.0",
+    "types-croniter>=5.0.1.20241205",
+    "types-futures>=3.3.8",
+    "types-orjson>=3.6.2",
+    "types-python-dateutil>=2.9.0.20241206",
+    "types-pytz>=2025.1.0.20250318",
+    "types-pyyaml>=6.0.12.20241230",
+    "types-redis>=4.6.0.20241004",
+    "types-requests>=2.32.0.20250306",
+    "types-toml>=0.10.8.20240310",
+    "typing-extensions>=4.12.2",
+    "watchfiles>=1.0.4",
+]
