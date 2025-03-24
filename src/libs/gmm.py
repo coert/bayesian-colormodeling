@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+import joblib
+
 from sklearn.mixture import GaussianMixture
 
 EPS = np.finfo(float).eps
@@ -33,11 +35,13 @@ class BayesianColorClassifierLabGMM:
 
         # Fit GMMs
         self.query_gmm = GaussianMixture(
-            n_components=self.n_components, covariance_type=self.covariance_type
+            n_components=self.n_components,
+            covariance_type=self.covariance_type,
         ).fit(query_pixels)
 
         self.non_query_gmm = GaussianMixture(
-            n_components=self.n_components, covariance_type=self.covariance_type
+            n_components=self.n_components,
+            covariance_type=self.covariance_type,
         ).fit(non_query_pixels)
 
         # Set priors
@@ -77,3 +81,31 @@ class BayesianColorClassifierLabGMM:
         posterior_image = posterior.reshape(bgr_image.shape[:2])
 
         return posterior_image
+
+    def save(self, path):
+        """Save GMM models and priors to a file."""
+        with open(path, "wb") as f:
+            joblib.dump(
+                {
+                    "query_gmm": self.query_gmm,
+                    "non_query_gmm": self.non_query_gmm,
+                    "query_prior": self.query_prior,
+                    "non_query_prior": self.non_query_prior,
+                    "n_components": self.n_components,
+                    "covariance_type": self.covariance_type,
+                },
+                f,
+            )
+        print(f"Model saved to {path}")
+
+    def load(self, path):
+        """Load GMM models and priors from a file."""
+        with open(path, "rb") as f:
+            data = joblib.load(f)
+            self.query_gmm = data["query_gmm"]
+            self.non_query_gmm = data["non_query_gmm"]
+            self.query_prior = data["query_prior"]
+            self.non_query_prior = data["non_query_prior"]
+            self.n_components = data["n_components"]
+            self.covariance_type = data["covariance_type"]
+        print(f"Model loaded from {path}")
