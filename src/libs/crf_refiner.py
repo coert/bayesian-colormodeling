@@ -1,4 +1,7 @@
+import numpy as np
 import torch
+
+EPS = np.finfo(float).eps
 
 
 class CRFRefiner(torch.nn.Module):
@@ -24,7 +27,7 @@ class CRFRefiner(torch.nn.Module):
 
         for _ in range(self.num_iterations):
             # Unary term (negative log likelihood)
-            unary_energy = -torch.log(refined + 1e-10)
+            unary_energy = -torch.log(refined + EPS)
 
             # Pairwise term (smoothness: absolute difference with neighbors)
             pairwise_energy = torch.zeros_like(unary_energy)
@@ -53,6 +56,6 @@ class CRFRefiner(torch.nn.Module):
 
         # Normalize final result
         refined = refined - refined.min()
-        refined = refined / (refined.max() + 1e-8)
+        refined = refined / (refined.max() + EPS)
 
         return refined
