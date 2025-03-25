@@ -1,9 +1,4 @@
 [project]
-name = "bayesian-colormodeling"
-version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.13"
 dependencies = [
     "click>=8.1.8",
     "ffmpeg-python>=0.2.0",
@@ -18,8 +13,14 @@ dependencies = [
     "scikit-learn>=1.6.1",
     "seaborn>=0.13.2",
     "toml>=0.10.2",
+    "torch>=2.6.0",
     "tqdm>=4.67.1",
 ]
+description = "Add your description here"
+name = "bayesian-colormodeling"
+readme = "README.md"
+requires-python = ">=3.11"
+version = "0.1.0"
 
 [dependency-groups]
 dev = [
